@@ -15,10 +15,11 @@ type Info struct {
 }
 
 type Behavior struct {
-	WorkFn func() error
-	ExitFn func() error
-	StdLog *log.Logger
-	ErrLog *log.Logger
+	WorkFn  func() error
+	ExitFn  func() error
+	StdLog  *log.Logger
+	ErrLog  *log.Logger
+	Command string
 }
 
 func Start(info Info, behavior Behavior) error {
@@ -28,12 +29,13 @@ func Start(info Info, behavior Behavior) error {
 	}
 
 	s := ManagedService{
-		Daemon: srv,
-		info:   info,
-		workFn: behavior.WorkFn,
-		exitFn: behavior.ExitFn,
-		stdlog: behavior.StdLog,
-		errlog: behavior.ErrLog,
+		Daemon:  srv,
+		info:    info,
+		workFn:  behavior.WorkFn,
+		exitFn:  behavior.ExitFn,
+		stdlog:  behavior.StdLog,
+		errlog:  behavior.ErrLog,
+		command: behavior.Command,
 	}
 
 	if s.stdlog == nil {
@@ -56,19 +58,24 @@ func Start(info Info, behavior Behavior) error {
 
 type ManagedService struct {
 	daemon.Daemon
-	workFn func() error
-	exitFn func() error
-	info   Info
-	stdlog *log.Logger
-	errlog *log.Logger
+	workFn  func() error
+	exitFn  func() error
+	info    Info
+	stdlog  *log.Logger
+	errlog  *log.Logger
+	command string
 }
 
 func (s *ManagedService) Manage() (string, error) {
 	usage := "Usage: " + s.info.Name + " install | remove | start | stop | status"
+	command := s.command
 
-	// if received any kind of command, do it
-	if len(os.Args) > 1 {
-		command := os.Args[1]
+	// if received any kind of command, and we haven't specified one ourselves, do it
+	if len(command) == 0 && len(os.Args) > 1 {
+		command = os.Args[1]
+	}
+
+	if len(command) > 0 {
 		switch command {
 		case "install":
 			return s.Install()

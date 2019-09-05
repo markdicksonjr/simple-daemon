@@ -87,8 +87,10 @@ func (s *ManagedService) Manage() (string, error) {
 			return s.Stop()
 		case "status":
 			return s.Status()
-		default:
+		case "help":
 			return usage, nil
+		default:
+			break
 		}
 	}
 

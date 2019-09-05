@@ -43,6 +43,8 @@ The various lifecycle stages of services can be managed (by default):
 
 `binaryName install`
 
+`binaryName help`
+
 `binaryName remove`
 
 `binaryName start`
@@ -53,6 +55,10 @@ The various lifecycle stages of services can be managed (by default):
 
 To customize these flags, you can handle them yourself and set the "Command" property on the Behavior you pass to the 
 service at creation time.
+
+If you're debugging locally, just dont use one of the commands above:
+
+`binaryName ...otherArgs`
 
 ## Restrictions
 

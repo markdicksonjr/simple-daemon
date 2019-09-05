@@ -28,6 +28,7 @@ func main() {
 			log.Println("simple log")
 			return nil
 		},
+        UseExeDirAsCwd: true,
 	}); err != nil {
 		log.Fatal(err)
 	}
@@ -35,7 +36,9 @@ func main() {
 ```
 
 This will create the service with the name and description provided.  On Windows, the service will be "auto" and will 
-run immediately.
+run immediately.  The "UseExeDirAsCwd" flag determines whether or not the working directory is set to wherever the exe
+is run from.  Typically, if this is false on windows, this means the current directory will be something like
+C:/Windows/system32 or such.
 
 ## Service Lifecycle
 

@@ -4,6 +4,7 @@ import (
 	"github.com/kardianos/service"
 	"log"
 	"os"
+	"path"
 )
 
 type Info struct {
@@ -13,8 +14,9 @@ type Info struct {
 }
 
 type Behavior struct {
-	WorkFn func() error
-	ExitFn func() error
+	WorkFn         func() error
+	ExitFn         func() error
+	UseExeDirAsCwd bool
 }
 
 type program struct {
@@ -27,8 +29,14 @@ func (p *program) Start(s service.Service) error {
 }
 
 func (p *program) run() {
+	if p.B.UseExeDirAsCwd {
+		if err := os.Chdir(path.Dir(os.Args[0])); err != nil {
+			panic(err)
+		}
+	}
+
 	if err := p.B.WorkFn(); err != nil {
-		log.Fatal(err) // todo
+		panic(err)
 	}
 }
 

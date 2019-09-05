@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"strings"
 )
 
 type Info struct {
@@ -30,7 +31,7 @@ func (p *program) Start(s service.Service) error {
 
 func (p *program) run() {
 	if p.B.UseExeDirAsCwd {
-		if err := os.Chdir(path.Dir(os.Args[0])); err != nil {
+		if err := os.Chdir(path.Dir(strings.ReplaceAll(os.Args[0], "\\", "/"))); err != nil {
 			panic(err)
 		}
 	}

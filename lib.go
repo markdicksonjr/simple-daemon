@@ -78,7 +78,7 @@ func (s *ManagedService) Manage() (string, error) {
 	if len(command) > 0 {
 		switch command {
 		case "install":
-			return s.Install()
+			return s.Install(os.Args[2:]...)
 		case "remove":
 			return s.Remove()
 		case "start":

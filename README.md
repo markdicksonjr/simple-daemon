@@ -41,11 +41,9 @@ run immediately.
 
 The various lifecycle stages of services can be managed (by default):
 
-`binaryName install`
+`binaryName install` or `binaryName install [args...]`
 
-`binaryName help`
-
-`binaryName remove`
+`binaryName uninstall`
 
 `binaryName start`
 
@@ -53,17 +51,10 @@ The various lifecycle stages of services can be managed (by default):
 
 `binaryName status`
 
-To customize these flags, you can handle them yourself and set the "Command" property on the Behavior you pass to the 
-service at creation time.
-
-If you're debugging locally, just dont use one of the commands above:
+For direct invocation:
 
 `binaryName ...otherArgs`
 
-## Restrictions
-
-Due to a third-party implementation detail, service names with spaces will have those spaces converted to underscores.
-
 ## Credits
 
-[github.com/takama/daemon](http://github.com/takama/daemon)
+[github.com/kardianos/service](https://github.com/kardianos/service)

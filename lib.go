@@ -31,7 +31,7 @@ func (p *program) Start(s service.Service) error {
 
 func (p *program) run() {
 	if p.B.UseExeDirAsCwd {
-		if err := os.Chdir(path.Dir(strings.ReplaceAll(os.Args[0], "\\", "/"))); err != nil {
+		if err := SetCwdAsBinaryDirectory(); err != nil {
 			panic(err)
 		}
 	}
@@ -95,4 +95,8 @@ func Start(info Info, behavior Behavior) error {
 		return err
 	}
 	return nil
+}
+
+func SetCwdAsBinaryDirectory() error {
+	return os.Chdir(path.Dir(strings.ReplaceAll(os.Args[0], "\\", "/")))
 }

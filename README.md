@@ -1,7 +1,6 @@
 # Simple Daemon
 
-A super-simple wrapper for making a simple cross-platform service.  With only a few lines of code, you can
-run your process as a daemon/service.
+A super-simple wrapper for making a simple cross-platform service.  With only a few lines of code, you can install and run your process as a daemon/service.
 
 ## Getting Started
 
